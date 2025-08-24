@@ -1,14 +1,11 @@
 //import Start from './components/Start'
-import './App.css'
-import Login from './components/Login'
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import Cadastro from "./pages/Cadastro";
+import routes from "./routes/routes";
 
 function App() {
-  
-  return (
-    <>
-      <Login />
-    </>
-  )
+  return <RouterProvider router={routes} />;
 }
 
-export default App
+export default App;
