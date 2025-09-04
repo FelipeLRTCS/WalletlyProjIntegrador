@@ -8,7 +8,7 @@ function HamburgerMenu() {
   };
 
   return (
-    <div className="p-10 relative flex flex-col justify-items-end">
+    <div className="p-10 relative flex flex-col justify-items-start">
       {/* O Botão de Hambúrguer */}
       <button onClick={toggleMenu} className="focus:outline-none relative z-10">
         <div className="w-6 h-6 flex flex-col justify-center items-center">
@@ -32,15 +32,20 @@ function HamburgerMenu() {
 
       {/* O Menu de Dados (renderização condicional) */}
       {isOpen && (
-        <div className="absolute top-12 right-0 w-64 bg-white shadow-lg rounded-md overflow-hidden transition-all duration-300 ease-in-out flex flex-col justify-items-start">
-          <ul className="py-2">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-200">
-              Perfil
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-200">
-              Configurações
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Sair</li>
+        <div className="absolute top-20 left-0 w-64 h-screen bg-gray-400 shadow-lg rounded-md overflow-hidden transition-all duration-300 ease-in-out flex flex-col justify-items-end">
+          <ul className="flex flex-col justify-itens-start p-5 gap-3">
+            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+              Metas
+            </button>
+            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+              Educação financeira
+            </button>
+            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+              controle de orçamento
+            </button>
+            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+              extrato
+            </button>
           </ul>
         </div>
       )}
