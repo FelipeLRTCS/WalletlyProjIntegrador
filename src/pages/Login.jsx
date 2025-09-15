@@ -56,7 +56,7 @@ function Login() {
             <a href="/cadastro" className="hover:underline">
               Criar conta
             </a>
-            <a href="#" className="hover:underline">
+            <a href="/extrato" className="hover:underline">
               Esqueceu a senha?
             </a>
           </div>

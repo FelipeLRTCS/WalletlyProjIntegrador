@@ -9,6 +9,7 @@ import {
 import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
 import Start from "../pages/Start";
+import Extrato from "../pages/Extrato";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
@@ -19,6 +20,8 @@ const router = createBrowserRouter(
       <Route path="cadastro" element={<Cadastro />} />
 
       <Route path="start" element={<Start />} />
+
+      <Route path="extrato" element={<Extrato />} />
     </Route>
   )
 );

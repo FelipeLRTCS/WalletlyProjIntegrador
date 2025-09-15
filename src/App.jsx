@@ -1,10 +1,10 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import routes from "./routes/routes";
-import Extrato from "./pages/Extrato.jsx";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  return <Extrato />;
+  return <Dashboard />;
 }
 
 export default App;
