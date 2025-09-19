@@ -1,5 +1,3 @@
-// src/rotas/index.js
-
 import {
   Route,
   createBrowserRouter,
@@ -10,6 +8,7 @@ import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
 import Start from "../pages/Start";
 import Extrato from "../pages/Extrato";
+import Dashboard from "../pages/Dashboard";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
@@ -22,6 +21,8 @@ const router = createBrowserRouter(
       <Route path="start" element={<Start />} />
 
       <Route path="extrato" element={<Extrato />} />
+
+      <Route path="dashboard" element={<Dashboard />} />
     </Route>
   )
 );

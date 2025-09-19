@@ -22,6 +22,7 @@ const IncomeExpenseChart = ({ dados }) => {
         <ReferenceLine y={0} stroke="#000" />
         <Bar dataKey="receitas" fill="#22C55E" />
         <Bar dataKey="despesas" fill="#EF4444" />
+        <br />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -1,16 +1,24 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // 1. Importe useNavigate e Link
 import Logo from "../assets/logo.jpg";
 import { Input } from "antd";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate(); // 2. Inicialize o hook
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    alert("Login enviado! Verifique o console.");
+
+    // 3. Lógica de navegação
+    // Como você pediu, ele vai navegar se qualquer email e senha forem digitados.
+    // Os campos 'required' no input já garantem que eles não estarão vazios.
+    if (email && password) {
+      console.log("Login realizado, redirecionando...");
+      navigate("/dashboard"); // Navega para a rota /dashboard
+    }
   };
 
   return (
@@ -37,7 +45,6 @@ function Login() {
           />
 
           <Input.Password
-            type={showPassword ? "text" : "password"}
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -52,13 +59,14 @@ function Login() {
             Login
           </button>
 
+          {/* 4. Troquei <a> por <Link> para uma navegação mais fluida */}
           <div className="flex justify-between w-full text-sm text-white">
-            <a href="/cadastro" className="hover:underline">
+            <Link to="/cadastro" className="hover:underline">
               Criar conta
-            </a>
-            <a href="/extrato" className="hover:underline">
+            </Link>
+            <Link to="/esqueci-a-senha" className="hover:underline">
               Esqueceu a senha?
-            </a>
+            </Link>
           </div>
         </div>
       </form>

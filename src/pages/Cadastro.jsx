@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // 1. Importe useNavigate e Link
 import Logo from "../assets/logo.jpg";
 import { Input } from "antd";
 
@@ -7,22 +8,25 @@ function Cadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate(); // 2. Inicialize o hook
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validação: checa se as senhas são iguais
     if (password !== confirmPassword) {
       setMessage("As senhas não coincidem!");
       return;
     }
 
-    // Se tudo estiver certo, exibe no console
     console.log({ nome, email, password });
     setMessage("Cadastro realizado com sucesso!");
-    // Aqui você chamaria a sua API para criar o usuário
+
+    // 3. Redireciona para o login após 2 segundos
+    setTimeout(() => {
+      navigate("/"); // Leva para a rota da página de login
+    }, 2000); // 2000 milissegundos = 2 segundos
   };
 
   return (
@@ -50,7 +54,6 @@ function Cadastro() {
 
           {/* Campo E-mail */}
           <Input
-            id="email"
             type="email"
             placeholder="E-mail"
             value={email}
@@ -60,20 +63,16 @@ function Cadastro() {
           />
 
           {/* Campo Senha */}
-          <div className="relative w-full">
-            <Input.Password
-              type={showPassword ? "text" : "password"}
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="h-12 w-full px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-          </div>
+          <Input.Password
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="h-12 w-full px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
 
           {/* Campo Confirmar Senha */}
           <Input.Password
-            type="password"
             placeholder="Confirmar Senha"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -81,10 +80,9 @@ function Cadastro() {
             required
           />
 
-          {/* Exibição de mensagens */}
           {message && (
             <p
-              className={`text-center text-sm ${
+              className={`text-center text-sm font-semibold ${
                 message.includes("sucesso") ? "text-green-300" : "text-red-300"
               }`}
             >
@@ -92,7 +90,6 @@ function Cadastro() {
             </p>
           )}
 
-          {/* Botão de Cadastro */}
           <button
             type="submit"
             className="h-12 w-full bg-white text-gray-500 font-bold text-lg rounded-md transition-transform transform hover:scale-105"
@@ -100,11 +97,11 @@ function Cadastro() {
             Cadastrar
           </button>
 
-          {/* Link para a tela de Login */}
+          {/* 4. Corrigido <a> para <Link> */}
           <div className="text-center text-sm text-white">
-            <a href="/" className="hover:underline">
+            <Link to="/" className="hover:underline">
               Já tem uma conta? Faça login
-            </a>
+            </Link>
           </div>
         </div>
       </form>

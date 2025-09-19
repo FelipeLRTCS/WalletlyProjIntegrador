@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // 1. Importe o componente Link
 
-function HamburgerMenu() {
+function Menu() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -8,44 +9,58 @@ function HamburgerMenu() {
   };
 
   return (
-    <div className="p-10 relative flex flex-col justify-items-start">
-      {/* O Botão de Hambúrguer */}
-      <button onClick={toggleMenu} className="focus:outline-none relative z-10">
+    <div className="relative">
+      <button
+        onClick={toggleMenu}
+        className="focus:outline-none relative z-30 p-4"
+      >
         <div className="w-6 h-6 flex flex-col justify-center items-center">
+          {/* Animação */}
           <span
-            className={`bg-black w-6 h-1 rounded-full transition-all duration-300 transform ${
+            className={`bg-white w-6 h-1 rounded-full transition-all duration-300 transform ${
               isOpen ? "rotate-45 translate-y-2" : ""
             }`}
           ></span>
           <span
-            className={`bg-black w-6 h-1 my-1 rounded-full transition-all duration-300 ${
+            className={`bg-white w-6 h-1 my-1 rounded-full transition-all duration-300 ${
               isOpen ? "opacity-0" : ""
             }`}
           ></span>
           <span
-            className={`bg-black w-6 h-1 rounded-full transition-all duration-300 transform ${
+            className={`bg-white w-6 h-1 rounded-full transition-all duration-300 transform ${
               isOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
           ></span>
         </div>
       </button>
 
-      {/* O Menu de Dados (renderização condicional) */}
       {isOpen && (
-        <div className="absolute top-20 left-0 w-64 h-screen bg-gray-400 shadow-lg rounded-md overflow-hidden transition-all duration-300 ease-in-out flex flex-col justify-items-end">
-          <ul className="flex flex-col justify-itens-start p-5 gap-3">
-            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+        <div className="absolute top-0 md:left-0 sm:right-0 w-64 h-screen bg-blue-950 shadow-lg z-20">
+          <ul className="flex flex-col pt-24 p-5 gap-3">
+            <Link
+              to="/"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
               Metas
-            </button>
-            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
+            </Link>
+            <Link
+              to="/"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
               Educação financeira
-            </button>
-            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
-              controle de orçamento
-            </button>
-            <button className="text-center bg-cyan-900 rounded-lg text-white text-lg">
-              extrato
-            </button>
+            </Link>
+            <Link
+              to="/login"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
+              Controle de orçamento
+            </Link>
+            <Link
+              to="/extrato"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
+              Extrato
+            </Link>
           </ul>
         </div>
       )}
@@ -53,4 +68,4 @@ function HamburgerMenu() {
   );
 }
 
-export default HamburgerMenu;
+export default Menu;
