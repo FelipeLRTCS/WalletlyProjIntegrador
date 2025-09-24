@@ -38,7 +38,7 @@ function Menu() {
         <div className="absolute top-0 md:left-0 sm:right-0 w-64 h-screen bg-blue-950 shadow-lg z-20">
           <ul className="flex flex-col pt-24 p-5 gap-3">
             <Link
-              to="/"
+              to="/Metas"
               className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
             >
               Metas
@@ -50,7 +50,7 @@ function Menu() {
               Educação financeira
             </Link>
             <Link
-              to="/login"
+              to="/dashboard"
               className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
             >
               Controle de orçamento

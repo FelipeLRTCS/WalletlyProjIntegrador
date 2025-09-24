@@ -9,6 +9,7 @@ import Cadastro from "../pages/Cadastro";
 import Start from "../pages/Start";
 import Extrato from "../pages/Extrato";
 import Dashboard from "../pages/Dashboard";
+import Metas from "../pages/GoalChart";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
@@ -23,6 +24,8 @@ const router = createBrowserRouter(
       <Route path="extrato" element={<Extrato />} />
 
       <Route path="dashboard" element={<Dashboard />} />
+
+      <Route path="metas" element={<Metas />} />
     </Route>
   )
 );
