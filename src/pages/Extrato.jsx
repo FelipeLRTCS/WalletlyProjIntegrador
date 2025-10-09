@@ -17,7 +17,7 @@ function ExtratosPage() {
           <h2 className="text-2xl font-semibold text-white mb-6">Extratos</h2>
 
           {/* Caixa de texto superior */}
-          <div className="bg-cyan-900 text-white rounded-lg p-4 mb-6 border-white">
+          <div className="bg-cyan-900 text-white rounded-lg p-4 mb-6 ">
             <p className="text-sm">
               Para criarmos seu controle financeiro basta inserir todos os seus
               extratos bancários do período em que deseja.

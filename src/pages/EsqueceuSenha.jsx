@@ -1,22 +1,19 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // 1. Importe useNavigate e Link
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Importe o Link para navegação
 import Logo from "../assets/logo.jpg";
 import { Input } from "antd";
 
-function Login() {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const navigate = useNavigate(); // 2. Inicialize o hook
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // 3. Lógica de navegação
-    if (email && password) {
-      console.log("Login realizado, redirecionando...");
-      navigate("/dashboard");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Lógica para enviar o email de recuperação
+    console.log("Solicitação de recuperação para o e-mail:", email);
+    alert(
+      "Se o e-mail estiver cadastrado, você receberá um link para redefinir sua senha."
+    );
+    setEmail(""); // Limpa o campo após o envio
   };
 
   return (
@@ -32,6 +29,14 @@ function Login() {
         />
 
         <div className="flex flex-col p-8 gap-y-6">
+          <h2 className="text-xl font-bold text-white text-center">
+            Recuperar Senha
+          </h2>
+          <p className="text-sm text-gray-200 text-center">
+            Insira seu e-mail para receber as instruções de como redefinir sua
+            senha.
+          </p>
+
           <Input
             id="email"
             type="email"
@@ -42,33 +47,22 @@ function Login() {
             className="mt-1 h-12 w-full px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          <Input.Password
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="h-12 w-full px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          />
-
           <button
             type="submit"
             className="h-12 w-full bg-white text-gray-500 font-bold text-lg rounded-md transition-transform transform hover:scale-105"
           >
-            Login
+            Enviar Link
           </button>
 
-          <div className="flex justify-between w-full text-sm text-white">
-            <Link to="/cadastro" className="hover:underline">
-              Criar conta
-            </Link>
-            <Link to="/EsqueceuSenha" className="hover:underline">
-              Esqueceu a senha?
+          <div className="flex justify-center w-full text-sm text-white">
+            <Link to="/" className="hover:underline">
+              Voltar para o Login
             </Link>
           </div>
         </div>
       </form>
     </div>
   );
-}
+};
 
-export default Login;
+export default ForgotPassword;

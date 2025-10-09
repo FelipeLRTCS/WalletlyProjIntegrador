@@ -1,9 +1,7 @@
 import React from "react";
 
 const CustomTooltip = ({ active, payload, label }) => {
-  // A propriedade 'active' indica se o mouse está sobre o gráfico
   if (active && payload && payload.length) {
-    // O 'payload' é um array que contém os dados do item sobre o qual o mouse está
     const data = payload[0].payload;
 
     return (

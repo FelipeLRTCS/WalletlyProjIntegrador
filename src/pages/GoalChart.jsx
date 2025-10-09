@@ -61,7 +61,6 @@ const GoalTracker = () => {
     setAmountToAdd(0);
   };
 
-  // NOVA FUNÇÃO para remover uma meta
   const handleRemoveGoal = (goalIdToRemove) => {
     const updatedGoals = goals.filter((goal) => goal.id !== goalIdToRemove);
     setGoals(updatedGoals);
@@ -69,7 +68,6 @@ const GoalTracker = () => {
 
   return (
     <div className="bg-gray-100 mx-auto">
-      {/* Formulários (Adicionar Nova Meta e Adicionar Valor a uma Meta Existente) */}
       <Header />
       <div className="bg-white p-6 rounded-lg shadow-md mb-8">
         <h2 className="text-xl font-bold mb-4">Adicionar Nova Meta</h2>
@@ -142,7 +140,6 @@ const GoalTracker = () => {
         </form>
       </div>
 
-      {/* Gráfico de Metas com botão de remoção */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">Progresso das Metas</h2>
         <div className="h-96">
@@ -173,7 +170,6 @@ const GoalTracker = () => {
         </div>
       </div>
 
-      {/* NOVA SEÇÃO: Lista de metas com botão de remover */}
       <div className="bg-white p-6 rounded-lg shadow-md mt-8">
         <h2 className="text-xl font-bold mb-4">Gerenciar Metas</h2>
         <ul className="space-y-4">
