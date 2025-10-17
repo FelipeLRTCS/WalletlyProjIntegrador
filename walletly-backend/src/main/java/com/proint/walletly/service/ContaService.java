@@ -1,12 +1,13 @@
-package java.com.proint.walletly.service;
+package com.proint.walletly.service;
 
+import com.proint.walletly.dto.conta.ContaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.com.proint.walletly.repository.ContaRepository;
+import com.proint.walletly.repository.ContaRepository;
 
-import java.com.proint.walletly.model.Conta;
+import com.proint.walletly.model.Conta;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,7 @@ public class ContaService {
     }
 
     public Conta save(Conta conta) {
+
         return contaRepository.save(conta);
     }
 

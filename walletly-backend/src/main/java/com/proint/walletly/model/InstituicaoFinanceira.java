@@ -1,11 +1,20 @@
-package java.com.proint.walletly.model;
+package com.proint.walletly.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name = "instituicao_financeira", schema = "geral")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+@Audited
+@Getter
+@Setter
 public class InstituicaoFinanceira {
 
     @Id
@@ -17,29 +26,4 @@ public class InstituicaoFinanceira {
 
     @Column(name = "logo_url", nullable = false)
     private String logoUrl;
-
-    public InstituicaoFinanceira(String nome, String logoUrl) {
-        this.nome = nome;
-        this.logoUrl = logoUrl;
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public String getNome(){
-        return this.nome;
-    }
-
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-
-    public String getLogoUrl(){
-        return this.logoUrl;
-    }
-
-    public void setLogoUrl(String logoUrl){
-        this.logoUrl = logoUrl;
-    }
 }

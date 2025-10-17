@@ -1,12 +1,13 @@
-package java.com.proint.walletly.service;
+package com.proint.walletly.service;
 
+import com.proint.walletly.dto.instituicao.InstituicaoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.com.proint.walletly.model.InstituicaoFinanceira;
-import java.com.proint.walletly.repository.InstituicaoFinanceiraRepository;
+import com.proint.walletly.model.InstituicaoFinanceira;
+import com.proint.walletly.repository.InstituicaoFinanceiraRepository;
 import java.util.Optional;
 
 @Service
@@ -19,8 +20,9 @@ public class InstituicaoFinanceiraService {
         this.instituicaoFinanceiraRepository = instituicaoFinanceiraRepository;
     }
 
-    public InstituicaoFinanceira save(InstituicaoFinanceira instituicao) {
-        return instituicaoFinanceiraRepository.save(instituicao);
+    public InstituicaoFinanceira save(InstituicaoDTO instituicao) {
+        var instituicaoFinanceira = InstituicaoFinanceira.builder().nome(instituicao.nome()).logoUrl(instituicao.logoUrl()).build();
+        return instituicaoFinanceiraRepository.save(instituicaoFinanceira);
     }
 
     public Optional<InstituicaoFinanceira> findById(Long id) {

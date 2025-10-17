@@ -1,5 +1,6 @@
-package java.com.proint.walletly.controller;
+package com.proint.walletly.controller;
 
+import com.proint.walletly.dto.conta.ContaDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,12 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.com.proint.walletly.model.Conta;
-import java.com.proint.walletly.service.ContaService;
+import com.proint.walletly.model.Conta;
+import com.proint.walletly.service.ContaService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/contas")
+@RequestMapping("/contas")
 public class ContaController {
 
     private final ContaService contaService;

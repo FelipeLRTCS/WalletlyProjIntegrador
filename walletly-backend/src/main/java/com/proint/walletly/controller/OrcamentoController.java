@@ -1,4 +1,4 @@
-package java.com.proint.walletly.controller;
+package com.proint.walletly.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.com.proint.walletly.model.Orcamento;
-import java.com.proint.walletly.service.OrcamentoService;
+import com.proint.walletly.model.Orcamento;
+import com.proint.walletly.service.OrcamentoService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/orcamentos")
+@RequestMapping("/orcamentos")
 public class OrcamentoController {
 
     private final OrcamentoService orcamentoService;

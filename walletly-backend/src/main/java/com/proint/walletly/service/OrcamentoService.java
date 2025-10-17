@@ -1,12 +1,12 @@
-package java.com.proint.walletly.service;
+package com.proint.walletly.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.com.proint.walletly.model.Orcamento;
-import java.com.proint.walletly.repository.OrcamentoRepository;
+import com.proint.walletly.model.Orcamento;
+import com.proint.walletly.repository.OrcamentoRepository;
 import java.util.Optional;
 
 @Service
@@ -36,7 +36,7 @@ public class OrcamentoService {
             orcamento.setValorMaximo(orcamentoDetails.getValorMaximo());
             orcamento.setMes(orcamentoDetails.getMes());
             orcamento.setAno(orcamentoDetails.getAno());
-            orcamento.setUsuario(orcamentoDetails.getUsuario());
+            orcamento.setUser(orcamentoDetails.getUser());
             orcamento.setCategoria(orcamentoDetails.getCategoria());
             return orcamentoRepository.save(orcamento);
         }).orElseThrow(() -> new RuntimeException("Orçamento não encontrado com o ID " + id));

@@ -3,34 +3,37 @@ package com.proint.walletly.model;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.proint.walletly.model.enums.Role;
+import java.util.HashSet;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.hibernate.envers.Audited;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usuario", schema = "seguranca")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+@Audited
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Size(max = 50)
-    @Column(name="nomeCompleto", unique = true)
-    private String nomeCompleto;
+    @Column(name="nome")
+    private String nome;
     
     @NotBlank
     @Size(max = 50)
@@ -46,64 +49,45 @@ public class User implements UserDetails {
     @NotBlank
     @Size(max = 120)
     private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
-
-    public User() {
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
-
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "usuario_roles",
+        schema = "seguranca",
+        joinColumns = @JoinColumn(name = "usuario_fk"),
+        inverseJoinColumns = @JoinColumn(name = "role_fk")
+    )
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getUsers().add(this);
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
-
-    public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; }
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getNome()))
+                .toList();
     }
     
     @Override

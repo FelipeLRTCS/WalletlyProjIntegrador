@@ -1,5 +1,6 @@
-package java.com.proint.walletly.controller;
+package com.proint.walletly.controller;
 
+import com.proint.walletly.dto.instituicao.InstituicaoDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.com.proint.walletly.model.InstituicaoFinanceira;
-import java.com.proint.walletly.service.InstituicaoFinanceiraService;
+import com.proint.walletly.model.InstituicaoFinanceira;
+import com.proint.walletly.service.InstituicaoFinanceiraService;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +25,7 @@ public class InstituicaoFinanceiraController {
     }
 
     @PostMapping
-    public ResponseEntity<InstituicaoFinanceira> createInstituicaoFinanceira(@Valid @RequestBody InstituicaoFinanceira instituicao) {
+    public ResponseEntity<InstituicaoFinanceira> createInstituicaoFinanceira(@Valid @RequestBody InstituicaoDTO instituicao) {
         InstituicaoFinanceira savedInstituicao = instituicaoFinanceiraService.save(instituicao);
         return ResponseEntity.ok(savedInstituicao);
     }

@@ -1,11 +1,11 @@
-package java.com.proint.walletly.model;
+package com.proint.walletly.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
+import com.proint.walletly.model.User;
+import org.hibernate.envers.Audited;
 import java.math.BigDecimal;
 
 @Entity
@@ -13,7 +13,12 @@ import java.math.BigDecimal;
         @UniqueConstraint(name = "uk_orcamento_user_category_month_year", columnNames = {"fk_usuario", "fk_categoria", "mes", "ano"})
 })
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Getter
+@Setter
+@Audited
 public class Orcamento {
 
     @Id
@@ -23,7 +28,7 @@ public class Orcamento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_usuario", nullable = false)
     @NotNull(message = "O usuário é obrigatório")
-    private Usuario usuario;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_categoria", nullable = false)

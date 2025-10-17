@@ -1,15 +1,20 @@
-package java.com.proint.walletly.model;
+package com.proint.walletly.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name = "categoria", schema = "geral")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Getter
+@Setter
+@Audited
 public class Categoria {
 
     @Id

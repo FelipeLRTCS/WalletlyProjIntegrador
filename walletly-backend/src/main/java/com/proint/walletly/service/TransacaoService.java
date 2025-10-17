@@ -1,12 +1,12 @@
-package java.com.proint.walletly.service;
+package com.proint.walletly.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.com.proint.walletly.model.Transacao;
-import java.com.proint.walletly.repository.TransacaoRepository;
+import com.proint.walletly.model.Transacao;
+import com.proint.walletly.repository.TransacaoRepository;
 import java.util.Optional;
 
 @Service

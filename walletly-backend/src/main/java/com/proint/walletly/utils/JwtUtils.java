@@ -66,8 +66,24 @@ public class JwtUtils {
     }
     
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        try {
+            final String username = extractUsername(token);
+            boolean usernameMatch = username.equals(userDetails.getUsername());
+            boolean notExpired = !isTokenExpired(token);
+            
+            System.out.println("JWT Validation Debug:");
+            System.out.println("  Token username: " + username);
+            System.out.println("  UserDetails username: " + userDetails.getUsername());
+            System.out.println("  Username match: " + usernameMatch);
+            System.out.println("  Token not expired: " + notExpired);
+            System.out.println("  Final validation result: " + (usernameMatch && notExpired));
+            
+            return (usernameMatch && notExpired);
+        } catch (Exception e) {
+            System.err.println("JWT validation error: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
     
     private Key getSignInKey() {

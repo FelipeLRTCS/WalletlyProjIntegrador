@@ -1,12 +1,12 @@
-package java.com.proint.walletly.model;
+package com.proint.walletly.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.DecimalMin;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +14,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "transacao", schema = "geral")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Getter
+@Setter
+@Audited
 public class Transacao {
 
     @Id

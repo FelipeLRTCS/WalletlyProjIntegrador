@@ -1,4 +1,4 @@
-package java.com.proint.walletly.controller;
+package com.proint.walletly.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.com.proint.walletly.model.Transacao;
-import java.com.proint.walletly.service.TransacaoService;
+import com.proint.walletly.model.Transacao;
+import com.proint.walletly.service.TransacaoService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/transacoes")
+@RequestMapping("/transacoes")
 public class TransacaoController {
 
     private final TransacaoService transacaoService;
