@@ -17,13 +17,12 @@ CREATE TABLE if not exists geral.instituicao_financeira (
 
 CREATE TABLE if not exists geral.conta (
     id BIGSERIAL PRIMARY KEY,
-    fk_usuario INTEGER NOT NULL,
-    fk_instituicao INTEGER NOT NULL,
+    fk_usuario BIGINT NOT NULL,
+    fk_instituicao BIGINT NOT NULL,
     apelido VARCHAR(100) NOT NULL,
     tipo_conta VARCHAR(50) NOT NULL,
     saldo_atual DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
-    data_ultima_sincronizacao TIMESTAMP WITH TIME ZONE,
-
+    data_ultima_sincronizacao TIMESTAMP,
     FOREIGN KEY (fk_usuario) REFERENCES seguranca.usuario(id),
     FOREIGN KEY (fk_instituicao) REFERENCES geral.instituicao_financeira(id)
 );
@@ -36,12 +35,12 @@ CREATE TABLE if not exists geral.categoria (
 
 CREATE TABLE if not exists geral.transacao (
     id BIGSERIAL PRIMARY KEY,
-    fk_conta INTEGER NOT NULL,
-    fk_categoria INTEGER,
+    fk_conta BIGINT NOT NULL,
+    fk_categoria BIGINT,
     descricao VARCHAR(255) NOT NULL,
     valor DECIMAL(15, 2) NOT NULL,
     tipo_transacao VARCHAR(10) NOT NULL,
-    data_transacao DATE NOT NULL,
+    data_transacao TIMESTAMP NOT NULL,
 
     FOREIGN KEY (fk_conta) REFERENCES geral.conta(id),
     FOREIGN KEY (fk_categoria) REFERENCES geral.categoria(id)
@@ -59,4 +58,3 @@ CREATE TABLE if not exists geral.orcamento (
     FOREIGN KEY (fk_categoria) REFERENCES geral.categoria(id),
     UNIQUE (fk_usuario, fk_categoria, mes, ano)
 );
-
