@@ -1,5 +1,7 @@
 package com.proint.walletly.service;
 
+import com.proint.walletly.dto.categoria.CategoriaDTO;
+import com.proint.walletly.mapper.CategoriaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,30 +15,36 @@ import java.util.Optional;
 public class CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
+    private final CategoriaMapper categoriaMapper;
 
     @Autowired
-    public CategoriaService(CategoriaRepository categoriaRepository) {
+    public CategoriaService(CategoriaRepository categoriaRepository, CategoriaMapper categoriaMapper) {
         this.categoriaRepository = categoriaRepository;
+        this.categoriaMapper = categoriaMapper;
     }
 
-    public Categoria save(Categoria categoria) {
-        return categoriaRepository.save(categoria);
+    public CategoriaDTO save(CategoriaDTO dto) {
+        Categoria categoria = categoriaMapper.toEntity(dto);
+        Categoria saved = categoriaRepository.save(categoria);
+        return categoriaMapper.toDTO(saved);
     }
 
-    public Optional<Categoria> findById(Long id) {
-        return categoriaRepository.findById(id);
+    public Optional<CategoriaDTO> findById(Long id) {
+        return categoriaRepository.findById(id)
+                .map(categoriaMapper::toDTO);
     }
 
-    public Page<Categoria> findAll(Pageable pageable) {
-        return categoriaRepository.findAll(pageable);
+    public Page<CategoriaDTO> findAll(Pageable pageable) {
+        return categoriaRepository.findAll(pageable)
+                .map(categoriaMapper::toDTO);
     }
 
-    public Categoria update(Long id, Categoria categoriaDetails) {
-        return categoriaRepository.findById(id).map(categoria -> {
-            categoria.setNome(categoriaDetails.getNome());
-            categoria.setUrlImagemCategoria(categoriaDetails.getUrlImagemCategoria());
-            return categoriaRepository.save(categoria);
-        }).orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID " + id));
+    public CategoriaDTO update(Long id, CategoriaDTO dto) {
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID " + id));
+        categoriaMapper.updateEntityFromDTO(dto, categoria);
+        Categoria updated = categoriaRepository.save(categoria);
+        return categoriaMapper.toDTO(updated);
     }
 
     public void deleteById(Long id) {

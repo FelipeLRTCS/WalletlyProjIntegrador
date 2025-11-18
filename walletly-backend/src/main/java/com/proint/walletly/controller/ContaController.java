@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.proint.walletly.model.Conta;
 import com.proint.walletly.service.ContaService;
 import java.util.Optional;
 
@@ -25,27 +24,27 @@ public class ContaController {
     }
 
     @PostMapping
-    public ResponseEntity<Conta> createConta(@Valid @RequestBody Conta conta) {
-        Conta savedConta = contaService.save(conta);
+    public ResponseEntity<ContaDTO> createConta(@Valid @RequestBody ContaDTO conta) {
+        ContaDTO savedConta = contaService.save(conta);
         return new ResponseEntity<>(savedConta, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Conta> getContaById(@PathVariable Long id) {
-        Optional<Conta> conta = contaService.findById(id);
+    public ResponseEntity<ContaDTO> getContaById(@PathVariable Long id) {
+        Optional<ContaDTO> conta = contaService.findById(id);
         return conta.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<Page<Conta>> getAllContas(Pageable pageable) {
-        Page<Conta> contas = contaService.findAll(pageable);
+    public ResponseEntity<Page<ContaDTO>> getAllContas(Pageable pageable) {
+        Page<ContaDTO> contas = contaService.findAll(pageable);
         return ResponseEntity.ok(contas);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Conta> updateConta(@PathVariable Long id, @Valid @RequestBody Conta contaDetails) {
-        Conta updatedConta = contaService.update(id, contaDetails);
+    public ResponseEntity<ContaDTO> updateConta(@PathVariable Long id, @Valid @RequestBody ContaDTO contaDetails) {
+        ContaDTO updatedConta = contaService.update(id, contaDetails);
         return ResponseEntity.ok(updatedConta);
     }
 

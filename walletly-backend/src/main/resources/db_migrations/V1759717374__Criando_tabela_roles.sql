@@ -29,5 +29,5 @@ CREATE TABLE if not exists auditoria.usuario_roles_aud (
     FOREIGN KEY (rev) REFERENCES auditoria.revinfo(rev)
 );
 
-insert into seguranca.roles (nome) values ('ROLE_USER');
-insert into seguranca.roles (nome) values ('ROLE_ADMIN');
+insert into seguranca.roles (nome) values ('ROLE_USER') on conflict do nothing;
+insert into seguranca.roles (nome) values ('ROLE_ADMIN') on conflict do nothing;

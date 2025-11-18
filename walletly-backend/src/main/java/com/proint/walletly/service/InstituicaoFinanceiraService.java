@@ -1,6 +1,7 @@
 package com.proint.walletly.service;
 
 import com.proint.walletly.dto.instituicao.InstituicaoDTO;
+import com.proint.walletly.mapper.InstituicaoFinanceiraMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,31 +15,37 @@ import java.util.Optional;
 public class InstituicaoFinanceiraService {
 
     private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
+    private final InstituicaoFinanceiraMapper instituicaoMapper;
 
     @Autowired
-    public InstituicaoFinanceiraService(InstituicaoFinanceiraRepository instituicaoFinanceiraRepository) {
+    public InstituicaoFinanceiraService(InstituicaoFinanceiraRepository instituicaoFinanceiraRepository, 
+                                       InstituicaoFinanceiraMapper instituicaoMapper) {
         this.instituicaoFinanceiraRepository = instituicaoFinanceiraRepository;
+        this.instituicaoMapper = instituicaoMapper;
     }
 
-    public InstituicaoFinanceira save(InstituicaoDTO instituicao) {
-        var instituicaoFinanceira = InstituicaoFinanceira.builder().nome(instituicao.nome()).logoUrl(instituicao.logoUrl()).build();
-        return instituicaoFinanceiraRepository.save(instituicaoFinanceira);
+    public InstituicaoDTO save(InstituicaoDTO dto) {
+        InstituicaoFinanceira instituicao = instituicaoMapper.toEntity(dto);
+        InstituicaoFinanceira saved = instituicaoFinanceiraRepository.save(instituicao);
+        return instituicaoMapper.toDTO(saved);
     }
 
-    public Optional<InstituicaoFinanceira> findById(Long id) {
-        return instituicaoFinanceiraRepository.findById(id);
+    public Optional<InstituicaoDTO> findById(Long id) {
+        return instituicaoFinanceiraRepository.findById(id)
+                .map(instituicaoMapper::toDTO);
     }
 
-    public Page<InstituicaoFinanceira> findAll(Pageable pageable) {
-        return instituicaoFinanceiraRepository.findAll(pageable);
+    public Page<InstituicaoDTO> findAll(Pageable pageable) {
+        return instituicaoFinanceiraRepository.findAll(pageable)
+                .map(instituicaoMapper::toDTO);
     }
 
-    public InstituicaoFinanceira update(Long id, InstituicaoFinanceira instituicaoDetails) {
-        return instituicaoFinanceiraRepository.findById(id).map(instituicao -> {
-            instituicao.setNome(instituicaoDetails.getNome());
-            instituicao.setLogoUrl(instituicaoDetails.getLogoUrl());
-            return instituicaoFinanceiraRepository.save(instituicao);
-        }).orElseThrow(() -> new RuntimeException("Instituição financeira não encontrada com o ID " + id));
+    public InstituicaoDTO update(Long id, InstituicaoDTO dto) {
+        InstituicaoFinanceira instituicao = instituicaoFinanceiraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Instituição financeira não encontrada com o ID " + id));
+        instituicaoMapper.updateEntityFromDTO(dto, instituicao);
+        InstituicaoFinanceira updated = instituicaoFinanceiraRepository.save(instituicao);
+        return instituicaoMapper.toDTO(updated);
     }
 
     public void deleteById(Long id) {

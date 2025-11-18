@@ -1,46 +1,179 @@
 package com.proint.walletly.service;
 
+import com.proint.walletly.dto.transacao.TransacaoDTO;
+import com.proint.walletly.dto.transacao.TransacaoFilterDTO;
+import com.proint.walletly.dto.transacao.TransacaoGroupedDTO;
+import com.proint.walletly.mapper.TransacaoMapper;
+import com.proint.walletly.model.Transacao;
+import com.proint.walletly.repository.TransacaoRepository;
+import com.proint.walletly.utils.TransacaoSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.proint.walletly.model.Transacao;
-import com.proint.walletly.repository.TransacaoRepository;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransacaoService {
 
     private final TransacaoRepository transacaoRepository;
+    private final TransacaoMapper transacaoMapper;
 
     @Autowired
-    public TransacaoService(TransacaoRepository transacaoRepository) {
+    public TransacaoService(TransacaoRepository transacaoRepository, TransacaoMapper transacaoMapper) {
         this.transacaoRepository = transacaoRepository;
+        this.transacaoMapper = transacaoMapper;
     }
 
-    public Transacao save(Transacao transacao) {
-        return transacaoRepository.save(transacao);
+    public TransacaoDTO save(TransacaoDTO dto) {
+        Transacao transacao = transacaoMapper.toEntity(dto);
+        Transacao saved = transacaoRepository.save(transacao);
+        return transacaoMapper.toDTO(saved);
     }
 
-    public Optional<Transacao> findById(Long id) {
-        return transacaoRepository.findById(id);
+    public Optional<TransacaoDTO> findById(Long id) {
+        return transacaoRepository.findById(id)
+                .map(transacaoMapper::toDTO);
     }
 
-    public Page<Transacao> findAll(Pageable pageable) {
-        return transacaoRepository.findAll(pageable);
+    public Page<TransacaoDTO> findAll(Pageable pageable) {
+        return transacaoRepository.findAll(pageable)
+                .map(transacaoMapper::toDTO);
     }
 
-    public Transacao update(Long id, Transacao transacaoDetails) {
-        return transacaoRepository.findById(id).map(transacao -> {
-            transacao.setDescricao(transacaoDetails.getDescricao());
-            transacao.setValor(transacaoDetails.getValor());
-            transacao.setTipoTransacao(transacaoDetails.getTipoTransacao());
-            transacao.setDataTransacao(transacaoDetails.getDataTransacao());
-            transacao.setConta(transacaoDetails.getConta());
-            transacao.setCategoria(transacaoDetails.getCategoria());
-            return transacaoRepository.save(transacao);
-        }).orElseThrow(() -> new RuntimeException("Transação não encontrada com o ID " + id));
+    public Page<TransacaoDTO> findWithFilters(TransacaoFilterDTO filter, Pageable pageable) {
+        Specification<Transacao> spec = TransacaoSpecification.withFilters(
+                filter.contaId(),
+                filter.categoriaId(),
+                filter.tipoTransacao(),
+                filter.descricao(),
+                filter.dataInicio(),
+                filter.dataFim()
+        );
+        return transacaoRepository.findAll(spec, pageable)
+                .map(transacaoMapper::toDTO);
+    }
+
+    public List<Transacao> findWithFilters(TransacaoFilterDTO filter) {
+        Specification<Transacao> spec = TransacaoSpecification.withFilters(
+                filter.contaId(),
+                filter.categoriaId(),
+                filter.tipoTransacao(),
+                filter.descricao(),
+                filter.dataInicio(),
+                filter.dataFim()
+        );
+        return transacaoRepository.findAll(spec);
+    }
+
+    public List<TransacaoGroupedDTO> groupByCategory(TransacaoFilterDTO filter) {
+        List<Transacao> transacoes = findWithFilters(filter);
+        return transacoes.stream()
+                .filter(t -> t.getCategoria() != null)
+                .collect(Collectors.groupingBy(
+                        t -> t.getCategoria().getNome(),
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                    BigDecimal total = list.stream()
+                                            .map(Transacao::getValor)
+                                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                                    return new TransacaoGroupedDTO(
+                                            list.get(0).getCategoria().getNome(),
+                                            total,
+                                            (long) list.size()
+                                    );
+                                }
+                        )
+                ))
+                .values().stream()
+                .collect(Collectors.toList());
+    }
+
+    public List<TransacaoGroupedDTO> groupByAccount(TransacaoFilterDTO filter) {
+        List<Transacao> transacoes = findWithFilters(filter);
+        return transacoes.stream()
+                .collect(Collectors.groupingBy(
+                        t -> t.getConta().getApelido(),
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                    BigDecimal total = list.stream()
+                                            .map(Transacao::getValor)
+                                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                                    return new TransacaoGroupedDTO(
+                                            list.get(0).getConta().getApelido(),
+                                            total,
+                                            (long) list.size()
+                                    );
+                                }
+                        )
+                ))
+                .values().stream()
+                .collect(Collectors.toList());
+    }
+
+    public List<TransacaoGroupedDTO> groupByMonth(TransacaoFilterDTO filter) {
+        List<Transacao> transacoes = findWithFilters(filter);
+        return transacoes.stream()
+                .collect(Collectors.groupingBy(
+                        t -> t.getDataTransacao().getYear() + "-" + 
+                             String.format("%02d", t.getDataTransacao().getMonthValue()),
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                    BigDecimal total = list.stream()
+                                            .map(Transacao::getValor)
+                                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                                    String monthKey = list.get(0).getDataTransacao().getYear() + "-" + 
+                                                     String.format("%02d", list.get(0).getDataTransacao().getMonthValue());
+                                    return new TransacaoGroupedDTO(
+                                            monthKey,
+                                            total,
+                                            (long) list.size()
+                                    );
+                                }
+                        )
+                ))
+                .values().stream()
+                .sorted((a, b) -> a.groupKey().compareTo(b.groupKey()))
+                .collect(Collectors.toList());
+    }
+
+    public List<TransacaoGroupedDTO> groupByType(TransacaoFilterDTO filter) {
+        List<Transacao> transacoes = findWithFilters(filter);
+        return transacoes.stream()
+                .collect(Collectors.groupingBy(
+                        Transacao::getTipoTransacao,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                    BigDecimal total = list.stream()
+                                            .map(Transacao::getValor)
+                                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                                    return new TransacaoGroupedDTO(
+                                            list.get(0).getTipoTransacao(),
+                                            total,
+                                            (long) list.size()
+                                    );
+                                }
+                        )
+                ))
+                .values().stream()
+                .collect(Collectors.toList());
+    }
+
+    public TransacaoDTO update(Long id, TransacaoDTO dto) {
+        Transacao transacao = transacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transação não encontrada com o ID " + id));
+        transacaoMapper.updateEntityFromDTO(dto, transacao);
+        Transacao updated = transacaoRepository.save(transacao);
+        return transacaoMapper.toDTO(updated);
     }
 
     public void deleteById(Long id) {

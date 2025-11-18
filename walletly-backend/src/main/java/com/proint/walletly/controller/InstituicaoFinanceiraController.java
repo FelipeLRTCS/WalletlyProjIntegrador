@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.proint.walletly.model.InstituicaoFinanceira;
 import com.proint.walletly.service.InstituicaoFinanceiraService;
 import java.util.Optional;
 
@@ -25,27 +24,27 @@ public class InstituicaoFinanceiraController {
     }
 
     @PostMapping
-    public ResponseEntity<InstituicaoFinanceira> createInstituicaoFinanceira(@Valid @RequestBody InstituicaoDTO instituicao) {
-        InstituicaoFinanceira savedInstituicao = instituicaoFinanceiraService.save(instituicao);
-        return ResponseEntity.ok(savedInstituicao);
+    public ResponseEntity<InstituicaoDTO> createInstituicaoFinanceira(@Valid @RequestBody InstituicaoDTO instituicao) {
+        InstituicaoDTO savedInstituicao = instituicaoFinanceiraService.save(instituicao);
+        return new ResponseEntity<>(savedInstituicao, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InstituicaoFinanceira> getInstituicaoFinanceiraById(@PathVariable Long id) {
-        Optional<InstituicaoFinanceira> instituicao = instituicaoFinanceiraService.findById(id);
+    public ResponseEntity<InstituicaoDTO> getInstituicaoFinanceiraById(@PathVariable Long id) {
+        Optional<InstituicaoDTO> instituicao = instituicaoFinanceiraService.findById(id);
         return instituicao.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<Page<InstituicaoFinanceira>> getAllInstituicoesFinanceiras(Pageable pageable) {
-        Page<InstituicaoFinanceira> instituicoes = instituicaoFinanceiraService.findAll(pageable);
+    public ResponseEntity<Page<InstituicaoDTO>> getAllInstituicoesFinanceiras(Pageable pageable) {
+        Page<InstituicaoDTO> instituicoes = instituicaoFinanceiraService.findAll(pageable);
         return ResponseEntity.ok(instituicoes);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InstituicaoFinanceira> updateInstituicaoFinanceira(@PathVariable Long id, @Valid @RequestBody InstituicaoFinanceira instituicaoDetails) {
-        InstituicaoFinanceira updatedInstituicao = instituicaoFinanceiraService.update(id, instituicaoDetails);
+    public ResponseEntity<InstituicaoDTO> updateInstituicaoFinanceira(@PathVariable Long id, @Valid @RequestBody InstituicaoDTO instituicaoDetails) {
+        InstituicaoDTO updatedInstituicao = instituicaoFinanceiraService.update(id, instituicaoDetails);
         return ResponseEntity.ok(updatedInstituicao);
     }
 
