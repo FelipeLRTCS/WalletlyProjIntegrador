@@ -44,7 +44,7 @@ function Menu() {
               Metas
             </Link>
             <Link
-              to="/"
+              to="/Financeiro"
               className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
             >
               Educação financeira
@@ -60,6 +60,12 @@ function Menu() {
               className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
             >
               Extrato
+            </Link>
+            <Link
+              to="/perfil"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
+              Perfil
             </Link>
           </ul>
         </div>

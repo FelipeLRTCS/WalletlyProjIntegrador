@@ -1,12 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../assets/logo.jpg";
+
 function Perfil() {
-  const user = {
-    name: "Fulano de Tal",
-    email: "fulano@exemplo.com",
-    bio: "Sou Vendedor de carros",
-    renda: "R$ 5.000,00",
-    photoUrl: "https://via.placeholder.com/150"
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setUser({
+        name: "Fulano de Tal",
+        email: "fulano@exemplo.com",
+        bio: "Desenvolvedor React em constante aprendizado.",
+        photoUrl: "https://via.placeholder.com/150",
+      });
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <p className="text-xl text-gray-700">Carregando perfil...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <p className="text-xl text-red-600">Perfil não encontrado.</p>
+      </div>
+    );
   }
 
   return (
@@ -34,7 +58,9 @@ function Perfil() {
           </div>
 
           <div className="p-3">
-            <h2 className="text-xl font-semibold mb-2 text-gray-800">Biografia</h2>
+            <h2 className="text-xl font-semibold mb-2 text-gray-800">
+              Biografia
+            </h2>
             <p className="text-gray-600 leading-relaxed italic">{user.bio}</p>
           </div>
           <div className="p-3">
@@ -51,7 +77,6 @@ function Perfil() {
             Editar Perfil
           </button>
         </div>
-
       </div>
     </div>
   );
