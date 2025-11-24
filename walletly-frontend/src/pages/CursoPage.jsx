@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { cursos } from "../consts/consts";
+import { cursos } from "../data/data";
 import Header from "../components/Header";
 
 export default function CursoPage() {

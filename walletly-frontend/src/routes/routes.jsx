@@ -34,6 +34,7 @@ const router = createBrowserRouter(
       <Route path="metas" element={<Metas />} />
 
       <Route path="cursos" element={<CursosList />} />
+      
       <Route path="cursos/:id" element={<CursoPage />} />
 
       <Route path="EsqueceuSenha" element={<EsqueceuSenha />} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Curso from './Curso'
-import { cursos } from '../consts/consts'
+import { cursos } from '../data/data'
 import Header from '../components/Header'
 
 export default function CursosList() {
