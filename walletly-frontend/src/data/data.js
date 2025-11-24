@@ -46,33 +46,51 @@ export const dadosResultadoMensal = [
 export const cursos = [
   {
     id: 1,
-    Title: "Curso 1",
-    textLeft: "Este é o texto do lado esquerdo.",
-    textRight: "Este é o texto do lado direito.",
+    Title: "Desenvolvimento Web Full Stack",
+    textLeft: "Frontend com React e TypeScript",
+    textRight: "Backend com Node.js e PostgreSQL",
+    courseDescription:
+      "Domine o desenvolvimento web completo, desde a criação de interfaces modernas e responsivas até a construção de APIs robustas e escaláveis. Aprenda as tecnologias mais requisitadas pelo mercado e desenvolva projetos reais do zero.",
   },
   {
     id: 2,
-    Title: "Curso 2",
-    textLeft: "Este é o texto do lado esquerdo.",
-    textRight: "Este é o texto do lado direito.",
+    Title: "Python para Ciência de Dados",
+    textLeft: "Análise de Dados e Machine Learning",
+    textRight: "Visualização com Matplotlib e Seaborn",
+    courseDescription:
+      "Transforme dados em insights valiosos utilizando Python. Explore pandas, numpy, scikit-learn e aprenda a criar modelos preditivos, realizar análises estatísticas e visualizações profissionais que impulsionam decisões estratégicas.",
   },
   {
     id: 3,
-    Title: "Curso 3",
-    textLeft: "Este é o texto do lado esquerdo.",
-    textRight: "Este é o texto do lado direito.",
+    Title: "UI/UX Design Profissional",
+    textLeft: "Design Thinking e Prototipagem",
+    textRight: "Figma e Adobe XD Avançado",
+    courseDescription:
+      "Aprenda a criar experiências digitais memoráveis e interfaces intuitivas. Domine os princípios de design, psicologia das cores, tipografia e ferramentas profissionais para desenvolver produtos centrados no usuário.",
   },
   {
     id: 4,
-    Title: "titulo tal",
-    textLeft: "iahsdnoasddskam",
-    textRight: "jasbdjksbakdb.",
+    Title: "DevOps e Cloud Computing",
+    textLeft: "Docker, Kubernetes e CI/CD",
+    textRight: "AWS, Azure e Google Cloud",
+    courseDescription:
+      "Aprenda a automatizar deploys, gerenciar infraestrutura como código e implementar pipelines de integração contínua. Domine as principais plataformas cloud e práticas modernas de DevOps utilizadas por empresas globais.",
   },
-
   {
     id: 5,
-    Title: "curso do artobalixo tal",
-    textLeft: "iahsdnoasddskam",
-    textRight: "jasbdjksbakdb.",
+    Title: "Mobile com React Native",
+    textLeft: "Apps iOS e Android Nativos",
+    textRight: "Publicação na App Store e Play Store",
+    courseDescription:
+      "Desenvolva aplicativos móveis multiplataforma com uma única base de código. Aprenda desde conceitos fundamentais até recursos avançados como navegação, animações, integração com APIs e publicação nas lojas oficiais.",
   },
+  {
+    id: 6,
+    Title: "Cybersegurança e Ethical Hacking",
+    textLeft: "Testes de Penetração e Vulnerabilidades",
+    textRight: "Segurança de Redes e Aplicações",
+    courseDescription:
+      "Aprenda a proteger sistemas e identificar vulnerabilidades antes dos hackers. Explore técnicas de ethical hacking, análise de malware, criptografia e as melhores práticas de segurança da informação do mercado.",
+  },
+  
 ];
