@@ -11,6 +11,8 @@ import Extrato from "../pages/Extrato";
 import Dashboard from "../pages/Dashboard";
 import Metas from "../pages/GoalChart";
 import EsqueceuSenha from "../pages/EsqueceuSenha";
+import Financeiro from "../pages/Financeiro";
+import Perfil from "../pages/Perfil";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
@@ -29,6 +31,10 @@ const router = createBrowserRouter(
       <Route path="metas" element={<Metas />} />
 
       <Route path="EsqueceuSenha" element={<EsqueceuSenha />} />
+
+      <Route path="Financeiro" element={<Financeiro />} />
+
+      <Route path="perfil" element={<Perfil />} />
     </Route>
   )
 );
