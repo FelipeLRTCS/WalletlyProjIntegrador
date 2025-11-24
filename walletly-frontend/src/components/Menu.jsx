@@ -61,6 +61,12 @@ function Menu() {
             >
               Extrato
             </Link>
+            <Link
+              to="/cursos"
+              className="w-full text-center p-2 bg-cyan-900 rounded-lg text-white text-lg border border-white"
+            >
+              Cursos
+            </Link>
           </ul>
         </div>
       )}

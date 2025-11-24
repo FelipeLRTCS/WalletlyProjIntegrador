@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
-import { cursos } from "../data/data";
+import Header from "../../components/Header";
+import { cursos } from "../../data/data";
+import CursoNotFound from "./CursoNotFound";
 
 export default function Curso() {
   const { id } = useParams();
@@ -11,9 +12,7 @@ export default function Curso() {
     return (
       <>
         <Header />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-4xl font-bold text-red-600">Curso não encontrado!</h1>
-        </div>
+        <CursoNotFound />
       </>
     );
   }

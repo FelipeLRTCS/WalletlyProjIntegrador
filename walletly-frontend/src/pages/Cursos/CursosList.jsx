@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CursoCard from './CursoCard'
-import { cursos } from '../data/data'
-import Header from '../components/Header'
+import { cursos } from '../../data/data'
+import Header from '../../components/Header'
 
 export default function CursosList() {
   return (

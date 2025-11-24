@@ -12,8 +12,8 @@ import Dashboard from "../pages/Dashboard";
 import Metas from "../pages/GoalChart";
 import EsqueceuSenha from "../pages/EsqueceuSenha";
 import Perfil from '../pages/Perfil';
-import CursosList from '../pages/CursosList';
-import Curso from "../pages/Curso";
+import CursosList from '../pages/Cursos/CursosList';
+import Curso from "../pages/Cursos/CursoPage";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
