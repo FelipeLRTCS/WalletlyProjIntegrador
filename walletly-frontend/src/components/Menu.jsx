@@ -9,7 +9,7 @@ function Menu() {
   };
 
   return (
-    <div className="relative">
+    <div className="">
       <button
         onClick={toggleMenu}
         className="focus:outline-none relative z-30 p-4"
@@ -35,7 +35,7 @@ function Menu() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-0 md:left-0 sm:right-0 w-64 h-screen bg-blue-950 shadow-lg z-20">
+        <div className="absolute top-0 sm:right-0 w-64 h-screen bg-blue-950 shadow-lg z-20">
           <ul className="flex flex-col pt-24 p-5 gap-3">
             <Link
               to="/Metas"
