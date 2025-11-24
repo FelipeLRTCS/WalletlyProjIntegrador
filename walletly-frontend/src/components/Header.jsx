@@ -5,7 +5,7 @@ import Icon from "../assets/icon.png";
 const Header = () => {
   return (
     <header className="bg-blue-950 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-full bg-gray-600"></div>
           <span className="text-sm">Olá, nome</span>

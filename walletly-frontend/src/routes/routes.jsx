@@ -12,6 +12,8 @@ import Dashboard from "../pages/Dashboard";
 import Metas from "../pages/GoalChart";
 import EsqueceuSenha from "../pages/EsqueceuSenha";
 import Perfil from '../pages/Perfil';
+import CursosList from '../pages/CursosList';
+import CursoPage from "../pages/CursoPage";
 
 // 2. Crie e exporte o roteador
 const router = createBrowserRouter(
@@ -30,6 +32,9 @@ const router = createBrowserRouter(
       <Route path="dashboard" element={<Dashboard />} />
 
       <Route path="metas" element={<Metas />} />
+
+      <Route path="cursos" element={<CursosList />} />
+      <Route path="cursos/:id" element={<CursoPage />} />
 
       <Route path="EsqueceuSenha" element={<EsqueceuSenha />} />
     </Route>
