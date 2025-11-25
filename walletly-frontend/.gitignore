@@ -1,5 +1,11 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +13,30 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local files and environment files
 *.local
+.env
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+.vscode/
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Package lock and config files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Other generated files
+postcss.config.js
+tailwind.config.js
+vite.config.js
+
+# System files (optional but generally helpful)
+*.bak
+*.tmp

@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    container_name: walletly-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: walletlydb
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - walletly-network
+
+  backend:
+    build:
+      context: ../walletly-backend
+      dockerfile: Dockerfile
+    container_name: walletly-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/walletly
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - walletly-network
+
+  frontend:
+    build:
+      context: ../walletly-frontend
+      dockerfile: Dockerfile
+    container_name: walletly-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - walletly-network
+
+volumes:
+  postgres_data:
+
+networks:
+  walletly-network:
+    driver: bridge
